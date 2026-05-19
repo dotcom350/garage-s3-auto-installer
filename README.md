@@ -100,7 +100,14 @@ The generated routing is:
 
 ## Usage
 
-Make the script executable and run it as root:
+### One-click Installation Script
+
+```bash
+curl -O https://raw.githubusercontent.com/dotcom350/garage-s3-auto-installer/refs/heads/main/install-garage-full.sh && sudo bash install-garage-full.sh
+```
+
+You can also download the script manually, make it executable, and run it as
+root:
 
 ```bash
 chmod +x install-garage-full.sh
