@@ -1,20 +1,24 @@
-# Garage S3 Auto Installer
+# 🚀 Garage S3 Auto Installer
 
 This project contains a Bash installer that deploys a complete single-node
 [Garage](https://garagehq.deuxfleurs.fr/) S3-compatible storage stack on a VPS.
 
-The main script is:
+The main installer scripts are:
 
 ```bash
 install-garage-full.sh
+install-garage-full-es.sh
 ```
+
+Use `install-garage-full.sh` for English or `install-garage-full-es.sh` for the
+Spanish installer.
 
 It installs Garage, Garage WebUI, Caddy, and Watchtower using Docker Compose,
 configures S3 API access, enables bucket web hosting, prepares DNS-aware reverse
 proxy rules, creates an initial bucket and S3 access key, and sets up automatic
 daily backups.
 
-## What The Script Does
+## ✅ What The Script Does
 
 The installer performs the full deployment flow:
 
@@ -45,7 +49,7 @@ The installer performs the full deployment flow:
 18. Installs a daily backup cron job.
 19. Writes a final installation summary with endpoints and credentials.
 
-## Stack Components
+## 🧱 Stack Components
 
 The generated Docker Compose stack includes:
 
@@ -56,7 +60,7 @@ The generated Docker Compose stack includes:
 | `caddy-proxy` | `caddy:2-alpine` | Reverse proxy for WebUI, S3 API, and S3 web hosting |
 | `watchtower` | `containrrr/watchtower:latest` | Automatic container updates for labeled services |
 
-## Requirements
+## 📋 Requirements
 
 Use a fresh or dedicated Linux VPS. The script is intended for Debian/Ubuntu-like
 systems with `apt`.
@@ -72,7 +76,7 @@ Minimum practical requirements:
 
 The script will try to install missing dependencies automatically.
 
-## DNS Setup
+## 🌐 DNS Setup
 
 Before running the installer, prepare DNS records for the WebUI and S3 endpoint.
 
@@ -98,12 +102,38 @@ The generated routing is:
 | `https://<bucket>.<s3-domain>` | S3 API virtual-host access |
 | `https://<bucket>.web.<s3-domain>` | Public S3 website hosting |
 
-## Usage
+## ⚡ Usage
 
-### One-click Installation Script
+### 📦 Option 1: Clone The Repository
+
+You can download the full project with `git clone`:
 
 ```bash
-curl -O https://raw.githubusercontent.com/dotcom350/garage-s3-auto-installer/refs/heads/main/install-garage-full.sh && sudo bash install-garage-full.sh
+git clone https://github.com/dotcom350/garage-s3-auto-installer.git
+cd garage-s3-auto-installer
+chmod +x install-garage-full.sh
+sudo ./install-garage-full.sh
+```
+
+For the Spanish installer:
+
+```bash
+git clone https://github.com/dotcom350/garage-s3-auto-installer.git
+cd garage-s3-auto-installer
+chmod +x install-garage-full-es.sh
+sudo ./install-garage-full-es.sh
+```
+
+### ⚡ Option 2: Direct Remote Download
+
+```bash
+curl -O https://raw.githubusercontent.com/dotcom350/garage-s3-auto-installer/refs/heads/main/install-garage-full.sh && chmod +x install-garage-full.sh && sudo ./install-garage-full.sh
+```
+
+For the Spanish installer:
+
+```bash
+curl -O https://raw.githubusercontent.com/dotcom350/garage-s3-auto-installer/refs/heads/main/install-garage-full-es.sh && chmod +x install-garage-full-es.sh && sudo ./install-garage-full-es.sh
 ```
 
 You can also download the script manually, make it executable, and run it as
@@ -114,10 +144,17 @@ chmod +x install-garage-full.sh
 sudo ./install-garage-full.sh
 ```
 
+Spanish version:
+
+```bash
+chmod +x install-garage-full-es.sh
+sudo ./install-garage-full-es.sh
+```
+
 The script is interactive. It shows a deployment summary before making the final
 changes and asks for confirmation.
 
-## Generated Files
+## 📁 Generated Files
 
 The installer creates and manages files under:
 
@@ -139,7 +176,7 @@ Important paths:
 Generated credentials and configuration files are written with restrictive file
 permissions where possible.
 
-## Backups
+## 💾 Backups
 
 The script installs a daily cron job:
 
@@ -166,7 +203,7 @@ written to:
 /var/log/garage-backup.log
 ```
 
-## Security Notes
+## 🔐 Security Notes
 
 - Keep `/opt/garage-stack/garage/s3-credentials.txt` private.
 - Keep `/opt/garage-stack/garage/INSTALL_SUMMARY.txt` private because it may
@@ -177,17 +214,18 @@ written to:
 - The script may stop and remove existing containers named `garage`,
   `garage-webui`, `caddy-proxy`, `watchtower`, or `nginx-proxy-manager`.
 
-## Notes About `copy.sh`
+## 📝 Notes About `copy.sh`
 
 The repository also includes `copy.sh`, which appears to be an alternate or older
 variant of the same Garage installer. The recommended script is
-`install-garage-full.sh` because it explicitly separates:
+`install-garage-full.sh` or `install-garage-full-es.sh` because they explicitly
+separate:
 
 - S3 API path-style access
 - S3 API virtual-host access
 - Public bucket website hosting under `*.web.<s3-domain>`
 
-## Troubleshooting
+## 🛠️ Troubleshooting
 
 Check running containers:
 
@@ -219,7 +257,7 @@ View buckets:
 docker exec garage /garage bucket list
 ```
 
-## Uninstalling
+## 🧹 Uninstalling
 
 The script does not provide an uninstall command. To remove the stack manually,
 stop the Docker Compose project and then remove the files only after confirming
