@@ -3,6 +3,8 @@
 This project contains a Bash installer that deploys a complete single-node
 [Garage](https://garagehq.deuxfleurs.fr/) S3-compatible storage stack on a VPS.
 
+![Garage S3 installer preview](./installer.webp)
+
 The main installer scripts are:
 
 ```bash
